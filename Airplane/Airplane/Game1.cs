@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Airplane
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for your game ololo
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
