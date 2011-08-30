@@ -1,0 +1,14 @@
+layersControl layers = new LayersControl();
+
+Texture2D Town;
+
+
+Layers layerFarFar = new Layers();
+layerFarFar.Add(town);
+
+Layers layerFar = new Layers();
+layerFar.Add(plane);
+layerFar.Add(sun);
+
+drawLayers();
+

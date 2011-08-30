@@ -1,0 +1,12 @@
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\sky.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\city.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\farcity.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\plane2.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\CLOUD1.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Airplane.exe
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Airplane.pdb
+C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Airplane.exe
+C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Airplane.pdb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\rect3102.xnb

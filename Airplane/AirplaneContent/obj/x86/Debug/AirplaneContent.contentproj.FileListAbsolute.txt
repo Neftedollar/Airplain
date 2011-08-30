@@ -1,0 +1,1 @@
+C:\game\dev\Airplane\Airplane\AirplaneContent\obj\x86\Debug\ResolveAssemblyReference.cache
