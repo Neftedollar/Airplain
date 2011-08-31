@@ -17,13 +17,31 @@ namespace Airplane
 {
     public class GameObject
     {
-        public bool isVisible { get; set; }
+        public bool IsVisible { get; set; }
         public Vector2 Position {get;set;}  //the default object position
         public Texture2D Image {get; set;}
 
         public float Scale { set; get; }
         public float Rotation { set; get; }
         public Vector2 Speed { get; set; }
+
+        public string Tag { get; set; }
+
+        Vector2 size_;
+
+        public Vector2 Size { 
+            get
+            {
+                if (size_ == Vector2.Zero)
+                    return new Vector2(Image.Width, Image.Height);
+                else
+                    return size_;
+            }
+            set
+            {
+                size_ = value;
+            }
+        }
 
         public GameObject()
         {
@@ -36,6 +54,13 @@ namespace Airplane
             Position = position;
         }
 
+        public GameObject(Rectangle rect)
+        {
+            Initialize();
+            Position = new Vector2(rect.X,rect.Y);
+            Size = new Vector2(rect.Width, rect.Height);
+        }
+
         public GameObject(Vector2 position, Texture2D texture)
         {
             Initialize();
@@ -43,13 +68,24 @@ namespace Airplane
             Image = texture;
         }
 
-        protected virtual void Initialize()
+        public GameObject(Rectangle rect, Texture2D texture)
         {
-            isVisible = true;
-            Position = new Vector2(0, 0);
+            Initialize();
+            Position = new Vector2(rect.X, rect.Y);
+            Size = new Vector2(rect.Width, rect.Height);
+            Image = texture;
+        }
+
+        protected void Initialize()
+        {
+            IsVisible = true;
+            
             Scale = 1.0f;
             Rotation = 0.0f;
-            Speed = new Vector2(0,0);
+
+            Position = Vector2.Zero;
+            Speed = Vector2.Zero;
+            size_ = Vector2.Zero;
         }
 
         //

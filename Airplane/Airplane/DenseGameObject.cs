@@ -13,11 +13,17 @@ using Microsoft.Xna.Framework.Media;
 
 using System.Diagnostics;
 
+
+
 namespace Airplane
 {
-    class DenseGameObject : GameObject
+    public delegate void DCollisionEvent(DenseGameObject obj);
+
+    public class DenseGameObject : GameObject
     {
-        Rectangle collisionRect;
+        //respect to the object position
+        public DCollisionEvent CollisionEvent { get; set; }
+        public Rectangle CollisionRect { set; get; }
 
         DenseGameObject() : base()
         {
@@ -28,16 +34,30 @@ namespace Airplane
         {
             Initialize();
         }
+
+        public DenseGameObject(Rectangle rect)
+            : base(new Vector2(rect.X, rect.Y))
+        {
+            Initialize();
+            CollisionRect = rect;
+        }
+
         public DenseGameObject(Vector2 position, Texture2D texture)
             : base(position, texture)
         {
             Initialize();
         }
 
-        protected override void Initialize()
+        public DenseGameObject(Rectangle rect, Texture2D texture)
+            : base(rect, texture)
         {
-            collisionRect = new Rectangle(0, 0, 0, 0);
-            base.Initialize();
+            Initialize();
+            //CollisionRect = rect;
+        }
+
+        protected new void Initialize() 
+        {
+            CollisionRect = new Rectangle(0, 0, (int)base.Size.X, (int)base.Size.Y);
         }
 
         public void Collided(DenseGameObject collObject)

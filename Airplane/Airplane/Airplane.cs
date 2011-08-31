@@ -33,6 +33,8 @@ namespace Airplane
         Texture2D cloudImage;
         Texture2D houseImage;
 
+        Texture2D dummyTexture;
+
         //ingame objects
 
         static int NCLOUDS = 1;
@@ -88,8 +90,10 @@ namespace Airplane
             cloudImage = Content.Load<Texture2D>("images/CLOUD1");
             houseImage = Content.Load<Texture2D>("images/rect3102");
 
-            InitializeGameObjects();
-            
+            dummyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            dummyTexture.SetData(new Color[] { Color.White });
+
+            InitializeGameObjects(); //shouldnaa't be here
         }
 
         protected void InitializeGameObjects()
@@ -97,16 +101,21 @@ namespace Airplane
             collider = new Collider();
             //ingame object init
 
-            plane = new DenseGameObject(new Vector2(0, 0), planeImage);
-            ahouse = new DenseGameObject(new Vector2(0, 0), houseImage);
+            plane = new DenseGameObject(new Vector2(100,100), planeImage);
+            ahouse = new DenseGameObject(new Vector2(300, 300), houseImage);
+            
+            plane.CollisionEvent = onPlayerHit;
+
+            plane.Tag = "Player";
+            ahouse.Tag = "House";
 
             //decorations
             sky = new GameObject(new Vector2(0, 0), skyImage);
             farcity = new GameObject(new Vector2(0, 5), cityImage);
             farcityTwin = new GameObject(new Vector2(screenWidth, 5), cityImage);
             
-            farcity.Speed = new Vector2(-nspeed(40),0);
-            farcityTwin.Speed = new Vector2(-nspeed(40), 0);
+            farcity.Speed = new Vector2(-nspeed(87),0);
+            farcityTwin.Speed = new Vector2(-nspeed(87), 0);
 
             //layers init
             gameLayers.Add("plane", new GameLayer());
@@ -155,13 +164,39 @@ namespace Airplane
                 farcityTwin.Position = new Vector2(farcityTwin.Position.X + screenWidth, 5);
             }
 
+            collider.CheckCollisions();
+
         }
 
         protected override void Update(GameTime gameTime)
         {
             float framerate;
-            if( gameTime.ElapsedGameTime.Milliseconds > 0)
+            if (gameTime.ElapsedGameTime.Milliseconds > 0)
                 framerate = 1000.0f / gameTime.ElapsedGameTime.Milliseconds;
+
+            KeyboardState kbState = Keyboard.GetState();
+            {
+                if (kbState.IsKeyDown(Keys.Left))
+                {
+                    plane.Speed = new Vector2(-nspeed(100), 0);
+                }
+
+                if (kbState.IsKeyDown(Keys.Right))
+                {
+                    plane.Speed = new Vector2(nspeed(100), 0);
+                }
+
+                if (kbState.IsKeyDown(Keys.Up))
+                {
+                    plane.Speed = new Vector2(0, -nspeed(100));
+                }
+
+                if (kbState.IsKeyDown(Keys.Down))
+                {
+                    plane.Speed = new Vector2(0, nspeed(100));
+                }
+
+            }
 
             MoveObjects();
             CheckCollisions();
@@ -172,9 +207,9 @@ namespace Airplane
         {
             foreach (GameObject gameObject in layer)
             {
-                if (gameObject.isVisible)
+                if (gameObject.IsVisible)
                 {
-                    spriteBatch.Draw(
+                   /* spriteBatch.Draw(
                         gameObject.Image,
                         gameObject.Position + layer.Position,
                         null,
@@ -183,14 +218,22 @@ namespace Airplane
                         Vector2.Zero,
                         gameObject.Scale * layer.Scale,
                         SpriteEffects.None, layer.Level
-                        );
+                        );*/
 
-                    /*spriteBatch.Draw(gameObject.Image, 
+                    //don't sure if this float to int conversion is right
+                    spriteBatch.Draw(
+                        gameObject.Image, 
                         new Rectangle(
-                            (int)gameObject.Position.X, 
-                            (int)gameObject.Position.Y
-                            ,0,0),
-                            Color.White);*/
+                            (int)(gameObject.Position.X + layer.Position.X),
+                            (int)(gameObject.Position.Y + layer.Position.Y),
+                            (int)(gameObject.Size.X*gameObject.Scale*layer.Scale),
+                            (int)(gameObject.Size.Y*gameObject.Scale*layer.Scale)),
+                         null,
+                         Color.White,
+                         gameObject.Rotation + layer.Rotation,
+                         Vector2.Zero,
+                         SpriteEffects.None,
+                         layer.Level);
                 }
             }
         }
@@ -201,6 +244,7 @@ namespace Airplane
             {
                 DrawLayer(layer.Value);
             }
+            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -209,11 +253,17 @@ namespace Airplane
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             DrawScene();
+            //spriteBatch.Draw(dummyTexture, new Rectangle(400,400,300,300), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
         protected float nspeed(int speed) { return speed / 60.0f; }
+
+        void onPlayerHit(DenseGameObject obj)
+        {
+            Console.WriteLine("Player hit.");
+        }
     }
 }

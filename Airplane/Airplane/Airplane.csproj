@@ -113,7 +113,7 @@
     <Compile Include="DenseGameObject.cs" />
     <Compile Include="GameLayer.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Misc\Collider.cs" />
+    <Compile Include="Collider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Airplane.cs" />
