@@ -18,7 +18,7 @@ using System.Diagnostics;
 namespace Airplane
 {
 
-    public delegate void CollisionEventDelegate(DenseGameObject obj);
+    public delegate void CollisionEventDelegate(DenseGameObject obj1, DenseGameObject obj2);
 
     /// <summary>
     /// An object that can interact with other "dense" objects. 

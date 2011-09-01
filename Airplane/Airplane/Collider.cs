@@ -65,9 +65,9 @@ namespace Airplane
             if (checkRectanglesCollision(obj1_rect, obj2_rect) == true)
             {
                 if (obj1.CollisionEvent != (CollisionEventDelegate)null)
-                    obj1.CollisionEvent(obj2);
+                    obj1.CollisionEvent(obj1, obj2);
                 if (obj2.CollisionEvent != (CollisionEventDelegate)null)   //???
-                    obj2.CollisionEvent(obj1);
+                    obj2.CollisionEvent(obj2, obj1);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Airplane
         {
             ////Warning! Width and Height params are coordinates of the right top rectangle corner, not width and height of the rectangle
             //recheck this method later
-            //is recr1 intersect rect2
+            //is recr1 intersects rect2
             if (isPointInRectangle(new Vector2(rect1.X, rect1.Y), rect2))
                 return true;
             if (isPointInRectangle(new Vector2(rect1.Width, rect1.Y), rect2))
@@ -84,7 +84,7 @@ namespace Airplane
                 return true;
             if (isPointInRectangle(new Vector2(rect1.Width, rect1.Height), rect2))
                 return true;
-            //is recr2 intersect rect1
+            //is recr2 intersects rect1
             if (isPointInRectangle(new Vector2(rect2.X, rect2.Y), rect1))
                 return true;
             if (isPointInRectangle(new Vector2(rect2.Width, rect2.Y), rect1))

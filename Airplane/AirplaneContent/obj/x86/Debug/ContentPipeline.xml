@@ -55,6 +55,24 @@
       <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\plane2.xnb</Output>
       <Time>2011-09-01T16:52:23.8116472+04:00</Time>
     </Item>
+    <Item>
+      <Source>images\boubou.png</Source>
+      <Name>images\boubou</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\boubou.xnb</Output>
+      <Time>2011-09-01T22:51:25.3177508+04:00</Time>
+    </Item>
+    <Item>
+      <Source>images\stars.png</Source>
+      <Name>images\stars</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\stars.xnb</Output>
+      <Time>2011-09-01T23:49:10.3399388+04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

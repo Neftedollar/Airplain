@@ -10,3 +10,5 @@ C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Microsoft.Xna.Framework.Run
 C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Airplane.exe
 C:\game\dev\Airplane\Airplane\Airplane\obj\x86\Debug\Airplane.pdb
 C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\rect3102.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\boubou.xnb
+C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\stars.xnb

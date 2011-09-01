@@ -22,6 +22,7 @@ namespace Airplane
 
         int screenWidth, screenHeight;
 
+        const float houserate = 0.005f;
         //layers
         //List that will store game object layers. Each layer has a string name
         Dictionary<string, GameLayer> gameLayers = new Dictionary<string, GameLayer>();
@@ -33,21 +34,23 @@ namespace Airplane
         Texture2D cityImage;
         Texture2D cloudImage;
         Texture2D houseImage;
+        Texture2D starsImage;
 
         //ingame objects
         DenseGameObject plane;
-        DenseGameObject ahouse;
+        DenseGameObject []houses;
 
         DenseGameObject cloud_temp;
         Rectangle cloudsArea;
 
         //decorative objects
-        GameObject sky;
+        GameObject sky, stars;
         GameObject farcity, farcityTwin;
 
         //class that will check collisions between DenseGameObjects that added.
         Collider collider;
-        TriggerArea screenArea;
+        Collider leftScreenCollider;
+        DenseGameObject leftScreenTrigger;
 
         Random random = new Random();
 
@@ -87,6 +90,7 @@ namespace Airplane
             cityImage = Content.Load<Texture2D>("images/farcity");
             cloudImage = Content.Load<Texture2D>("images/CLOUD1");
             houseImage = Content.Load<Texture2D>("images/rect3102");
+            starsImage = Content.Load<Texture2D>("images/stars");
 
             InitializeGameObjects(); //shouldnaa't be here
         }
@@ -96,15 +100,14 @@ namespace Airplane
             //ingame object init
 
             plane = new DenseGameObject(new Vector2(100,100), planeImage);
-            ahouse = new DenseGameObject(new Rectangle(300, 300,300,300), houseImage);
-            screenArea = new TriggerArea(new Rectangle(0, 0, screenWidth, screenHeight));
+            leftScreenTrigger = new DenseGameObject(new Rectangle(-500,0,500,screenHeight), houseImage);
 
             cloud_temp = new DenseGameObject(new Vector2(150,100), cloudImage);
             cloudsArea = new Rectangle(screenWidth, 0, 200, screenHeight / 3);
             objectSpawnRandom(cloud_temp, cloudsArea);
 
             plane.Tag = "Player";
-            ahouse.Tag = "House";
+ 
             cloud_temp.Tag = "Cloud";
 
             //decorations
@@ -113,17 +116,19 @@ namespace Airplane
             //The "infinite" background city is made of two images that run looped each after other
             farcity = new GameObject(new Rectangle(0, 0, screenWidth, screenHeight + 5), cityImage);
             farcityTwin = new GameObject(new Rectangle(screenWidth, 5, screenWidth, screenHeight + 5), cityImage);
-            
+
+            stars = new GameObject(new Rectangle(0, 5, screenWidth, screenHeight + 5), starsImage);
+
             //set the speed of the background city
-            farcity.Speed = new Vector2(-nspeed(60),0);
-            farcityTwin.Speed = new Vector2(-nspeed(60), 0);
+            farcity.Speed = new Vector2(-nspeed(30),0);
+            farcityTwin.Speed = new Vector2(-nspeed(30), 0);
 
             //tune the plane
             plane.Scale = 0.3f;
 
             InitializeLayers();
             InitializeColliders();
-
+           
         }
 
         protected void InitializeLayers()
@@ -132,18 +137,21 @@ namespace Airplane
             gameLayers.Add("plane", new GameLayer());
             gameLayers.Add("sky", new GameLayer());
             gameLayers.Add("farcity", new GameLayer());
+            gameLayers.Add("stars", new GameLayer());
 
             //set the draw depth for the game layers
             gameLayers["plane"].Depth = 0.8f;
             gameLayers["farcity"].Depth = 0.5f;
             gameLayers["sky"].Depth = 0.0f;
+            gameLayers["stars"].Depth = 0.1f;
 
             //add objects to the layers
             gameLayers["plane"].addObject(plane);
-            gameLayers["plane"].addObject(ahouse);
             gameLayers["plane"].addObject(cloud_temp);
+            gameLayers["plane"].addObject(leftScreenTrigger);
 
             gameLayers["sky"].addObject(sky);
+            gameLayers["stars"].addObject(stars);
             gameLayers["farcity"].addObject(farcity);
             gameLayers["farcity"].addObject(farcityTwin);
 
@@ -155,15 +163,21 @@ namespace Airplane
 
             //add dense objects to the collider
             collider.addObject(plane);
-            collider.addObject(ahouse);
+            plane.CollisionEvent = onPlayerHit;
 
-            screenArea.OnObjectLeft = onPlayerInArea;
-            screenArea.addObject(plane);
+            leftScreenCollider = new Collider();
+            leftScreenCollider.addObject(leftScreenTrigger);
+            leftScreenCollider.addObject(plane);
+            leftScreenTrigger.CollisionEvent = onPlayerInArea;
         }
 
-        protected void onPlayerInArea(GameObject obj)
+        protected void onPlayerInArea(GameObject self, GameObject other)
         {
-            obj.Position = new Vector2(200, 350);
+            if (self.Position.X + self.SizeScaled.X > other.Position.X + other.SizeScaled.X && other.Tag == "Player")
+            {
+
+                other.Position = new Vector2(200, 350);
+            }
         }
 
         protected override void UnloadContent()
@@ -192,8 +206,8 @@ namespace Airplane
             }
 
             //check it check
-            //collider.CheckCollisions();
-            screenArea.checkAreaObjects();
+            collider.CheckCollisions();
+            leftScreenCollider.CheckCollisions();
         }
 
         protected override void Update(GameTime gameTime)
@@ -228,6 +242,13 @@ namespace Airplane
 
             MoveObjects();
             CheckCollisions();
+
+            float dice = (float)random.Next(1000)/1000;
+            if ((dice <= houserate))
+            {
+                objectSpawnHouse();
+            }
+
             base.Update(gameTime);
         }
 
@@ -304,10 +325,23 @@ namespace Airplane
             return new Vector2(x,y);
         }
 
-        void onCloudTriggerHit(DenseGameObject obj)
+        protected void objectSpawnHouse()
         {
-            Console.WriteLine("Clouds trigger hit.");
-            objectSpawnRandom(obj, cloudsArea);
+            int houseHeight = 100+random.Next(150);
+            int houseWidth = 100+random.Next(80);
+            DenseGameObject house = new DenseGameObject(new Rectangle(screenWidth,screenHeight-houseHeight,houseWidth, houseHeight),houseImage);
+            house.Tag = "House";
+            house.Speed = new Vector2(-nspeed(80), 0);
+            collider.addObject(house);
+            gameLayers["plane"].addObject(house);
+        }
+
+        void onPlayerHit(DenseGameObject self,DenseGameObject other)
+        {
+            if (other.Tag == "House")
+            {
+                self.Position = new Vector2(self.Position.X - 150, self.Position.Y);
+            }
         }
     }
 }

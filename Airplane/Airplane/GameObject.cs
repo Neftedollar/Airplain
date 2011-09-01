@@ -34,6 +34,13 @@ namespace Airplane
 
         public string Tag { get; set; }
 
+        public Vector2 SizeScaled { private set{}
+            get
+            {
+                return Size * Scale;
+            }
+        }
+
         Vector2 size_;
 
         //GameObject events
