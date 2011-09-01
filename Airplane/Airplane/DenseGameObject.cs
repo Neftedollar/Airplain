@@ -17,13 +17,18 @@ using System.Diagnostics;
 
 namespace Airplane
 {
-    public delegate void DCollisionEvent(DenseGameObject obj);
 
+    public delegate void CollisionEventDelegate(DenseGameObject obj);
+
+    /// <summary>
+    /// An object that can interact with other "dense" objects. 
+    /// </summary>
+    /// <param name="CollisionRect">Rectangle that sets "sensitive" region. Is relative to the object position.</param>
+    /// <param name="CollisionEvent">Delegate method that will be called if collision happenes</param>
     public class DenseGameObject : GameObject
     {
-        //respect to the object position
-        public DCollisionEvent CollisionEvent { get; set; }
         public Rectangle CollisionRect { set; get; }
+        public CollisionEventDelegate CollisionEvent { get; set; }
 
         DenseGameObject() : base()
         {
@@ -36,10 +41,9 @@ namespace Airplane
         }
 
         public DenseGameObject(Rectangle rect)
-            : base(new Vector2(rect.X, rect.Y))
+            : base(rect)
         {
             Initialize();
-            CollisionRect = rect;
         }
 
         public DenseGameObject(Vector2 position, Texture2D texture)
@@ -52,11 +56,11 @@ namespace Airplane
             : base(rect, texture)
         {
             Initialize();
-            //CollisionRect = rect;
         }
 
         protected new void Initialize() 
         {
+            // By default collision rectangle is the same as sprite region
             CollisionRect = new Rectangle(0, 0, (int)base.Size.X, (int)base.Size.Y);
         }
 

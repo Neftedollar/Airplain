@@ -29,22 +29,13 @@
       <Time>2011-08-29T21:28:29.5085061+04:00</Time>
     </Item>
     <Item>
-      <Source>images\plane2.png</Source>
-      <Name>images\plane2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\plane2.xnb</Output>
-      <Time>2011-08-29T21:29:31.7710673+04:00</Time>
-    </Item>
-    <Item>
       <Source>images\CLOUD1.png</Source>
       <Name>images\CLOUD1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\CLOUD1.xnb</Output>
-      <Time>2011-08-29T21:37:45.2522928+04:00</Time>
+      <Time>2011-09-01T12:31:26.3270903+04:00</Time>
     </Item>
     <Item>
       <Source>images\rect3102.png</Source>
@@ -54,6 +45,15 @@
       <Options>None</Options>
       <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\rect3102.xnb</Output>
       <Time>2011-08-30T17:58:15.947849+04:00</Time>
+    </Item>
+    <Item>
+      <Source>images\plane2.png</Source>
+      <Name>images\plane2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\game\dev\Airplane\Airplane\Airplane\bin\x86\Debug\Content\images\plane2.xnb</Output>
+      <Time>2011-09-01T16:52:23.8116472+04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

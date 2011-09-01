@@ -63,8 +63,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\plane2.png">
-      <Name>plane2</Name>
+    <Compile Include="images\rect3102.png">
+      <Name>rect3102</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -77,8 +77,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\rect3102.png">
-      <Name>rect3102</Name>
+    <Compile Include="images\plane2.png">
+      <Name>plane2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

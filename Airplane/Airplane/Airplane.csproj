@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TriggerArea.cs" />
     <Compile Include="DenseGameObject.cs" />
     <Compile Include="GameLayer.cs" />
     <Compile Include="GameObject.cs" />

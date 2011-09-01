@@ -6,12 +6,15 @@ using Microsoft.Xna.Framework;
 
 namespace Airplane
 {
+    /// <summary>
+    /// A game layer. It stores GameObjects and its layer depth to draw.
+    /// </summary>
     public class GameLayer : System.Collections.CollectionBase
     {
         public bool isVisible { set; get; }
         public float Rotation { set; get; }
         public Vector2 Position { set; get; }
-        public float Level { set; get; }
+        public float Depth { set; get; }
         public float Scale { set; get; }
         public Vector2 Speed { set; get; }
 
@@ -25,7 +28,7 @@ namespace Airplane
             isVisible = true;
             Rotation = 0.0f;
             Position = new Vector2(0, 0);
-            Level = 0.0f;
+            Depth = 0.0f;
             Scale = 1.0f;
             Speed = new Vector2(0,0);
         }
